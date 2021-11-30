@@ -51,6 +51,7 @@ public class VariaveisLaje {
 	private Double mServ;
 	private Double inercia;
 	private Double coeficienteK;
+	private Double coeficienteMx;
 	private Double ft0;
 	private Double ftInfinito;
 	private Double fAdm;
@@ -75,7 +76,7 @@ public class VariaveisLaje {
 			Double xx, Double xy, Double xx1, Double xy1, Double kx, Double ky, Double kx1, Double ky1, Double miX,
 			Double miY, Double miX1, Double miY1, Double qx, Double qy, Double qx1, Double qy1, Double mServ,
 			Double inercia, Double coeficienteK, Double ft0, Double ftInfinito, Double fAdm, Double d, Double x,
-			Double asX, Double asY, Double asX1, Double asY1, Double asMinPos, Double asMinNeg) {
+			Double asX, Double asY, Double asX1, Double asY1, Double asMinPos, Double asMinNeg, Double coeficienteMx) {
 		super();
 		this.ladoX = ladoX;
 		this.ppConcreto = ppConcreto;
@@ -137,6 +138,15 @@ public class VariaveisLaje {
 		this.asY1 = asY1;
 		this.asMinPos = asMinPos;
 		this.asMinNeg = asMinNeg;
+		this.coeficienteMx = coeficienteMx;
+	}
+	
+	public Double getCoeficienteMx() {
+		return coeficienteMx;
+	}
+
+	public void setCoeficienteMx(Double coeficienteMx) {
+		this.coeficienteMx = coeficienteMx;
 	}
 
 	public Double getLadoX() {
