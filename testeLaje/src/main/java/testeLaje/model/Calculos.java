@@ -1,53 +1,57 @@
 package testeLaje.model;
 
-import testeLaje.model.dao.impl.CoeficientesKDaoJDBC;
+import testeLaje.model.dao.impl.CoeficientesDaoJDBC;
 
 public class Calculos extends VariaveisLaje {
 	
-	Coeficientes coef = new Coeficientes();
+	CoeficientesKeMi coef = new CoeficientesKeMi();
 
 	public Calculos() {
 
 	}
-
+	
 	public void setVariaveis() {
 		//O QUE ALTERAR
-		//LADOS, CASO, REVESTIMENTO, CONTRAPISO, ESPESSURA DA LAJE, CARGA ACIDENTAL, PSI2, COEFICIENTE K, COEFICIENTES MI;
+		//LADOS, AJUSTAR O LAMBDA, CASO, ESPESSURA DA LAJE, CARGA ACIDENTAL, PSI2;
 
-		// em metros - ALTERAR
-		setLadoX(4.3);
-		setLadoY(5.8);
+		// em metros
+		setLadoX(3.4); //ALTERAR
+		setLadoY(4.8); //ALTERAR
 		setArea(getLadoX() * getLadoY());
 		//LAMBDA
 		coef.setLambda(getLadoY()/getLadoX());
 		//CASO
-		coef.setCaso(9.0);
+		coef.setCaso(4.0); //ALTERAR
 		// espessuras em cm, divido por 100 para passar pra m - ALTERAR
-		setEspessuraRevestimento(2.0 / 100.0);
-		setEspessuraContraPiso(3.0 / 100.0);
-		setEspessuraLaje(7.0 / 100.0);
+		setEspessuraRevestimento(2.0 / 100.0); //PADRÃO
+		setEspessuraContraPiso(3.0 / 100.0); //PADRÃO
+		setEspessuraLaje(9.0 / 100.0); //ALTERAR
 		// tudo em kN/m²
-		setGamaConcreto(25.0);
-		setGamaContrapiso(21.0);
-		setGamaPiso(18.0);
-		setpForro(0.5);
-		// carga acidental - ALTERAR
-		setCargaQ(1.5);
-		//psi2 - ALTERAR
-		setPsi2(0.4);
+		setGamaConcreto(25.0); //PADRÃO
+		setGamaContrapiso(21.0); //PADRÃO
+		setGamaPiso(18.0); //PADRÃO
+		setpForro(0.5); //PADRÃO
+		
+		// carga acidental
+		setCargaQ(5.0); //ALTERAR
+		
+		//psi2
+		setPsi2(0.4); //ALTERAR
+		
 		//Fc
-		setFck(25.0);
+		setFck(25.0); //PADRÃO
 		setFcd((getFck()/1.4)/10.0);
 		setFctm(0.3*(Math.pow(getFck(),(0.66666666666666666666666666666667))));
 		setFctkInf(0.7*getFctm());
 		setFctd(getFctkInf()/1.4);
 		//Fy
-		setFyk(500.0);
+		setFyk(500.0); //PADRÃO
 		setFyd((getFyk()/1.15)/10);
 		//Inércia
 		setInercia((100.0*Math.pow((getEspessuraLaje()*100),3))/12);
 		//AUTOMATIZAR
-		setCoeficienteK(0.21);
+		setCoeficienteMx(0.045);
+		setCoeficienteK(0.36); //ALTERAR
 		//CÁLCULO DO D
 		setD(getEspessuraLaje()*100 - 2.5 - 0.5);
 	}
@@ -77,6 +81,21 @@ public class Calculos extends VariaveisLaje {
 		return getpServ();
 	}
 	
+	public String verificaDirecoes() {
+		if(coef.getLambda() >= 2) {
+			return "ARMADA EM 1 DIREÇÃO";
+		}
+		else {
+			return "ARMADA EM 2 DIREÇÕES";
+		}
+	}
+	
+	public Double ajustaAB() {
+		double coeficiente = Math.floor((getLadoX()/getLadoY())*10);
+		
+		return coeficiente/10;
+	}
+	
 	public Double eCi() {
 		double eCi = 0.0;
 		//USANDO BASALTO = 1.2
@@ -101,15 +120,15 @@ public class Calculos extends VariaveisLaje {
 		return getmFiss();
 	}
 	
-	//AUTOMATIZAR A CONSULTA
+	/*//AUTOMATIZAR A CONSULTA
 	public Double coeficienteMx() {
-		double coeficiente = Math.floor((getLadoX()/getLadoY())*10);
-		System.out.printf("a/b = %.2f%n", coeficiente/10);
-		return 0.034;
-	}
+		//double coeficiente = Math.floor((getLadoX()/getLadoY())*10);
+		//System.out.printf("a/b = %.2f%n", coeficiente/10);
+		return 0.034; //ALTERAR
+	}*/
 	
 	public Double momentoDeServico() {
-		setmServ(coeficienteMx()*getpServ()*Math.pow(getLadoX(), 2));
+		setmServ(getCoeficienteMx()*getpServ()*Math.pow(getLadoX(), 2));
 		
 		return getmServ()*100;
 	}
@@ -155,16 +174,24 @@ public class Calculos extends VariaveisLaje {
 		}
 	}
 	public Double ajustaLambda() {
-		coef.setLambda(1.35);
+		coef.setLambda(1.35); //ALTERAR
 		return coef.getLambda();
 	}
 	
 	public void setCoeficientes() {
 		
-		CoeficientesKDaoJDBC consulta = new CoeficientesKDaoJDBC();
+		CoeficientesDaoJDBC consulta = new CoeficientesDaoJDBC();
+
+		coef = consulta.pesquisaCoeficientesKeMi(coef.getLambda(), coef.getCaso());
 		
-		//coef.getLambda()  coef.getCaso()
-		coef = consulta.pesquisaCoeficientes(coef.getLambda(), coef.getCaso());
+		setMiX(consulta.obj.getMiX());
+		setMiY(consulta.obj.getMiY());
+		setMiX1(consulta.obj.getMiX1());
+		setMiY1(consulta.obj.getMiY1());
+		setKx(consulta.obj.getKx());
+		setKy(consulta.obj.getKy());
+		setKx1(consulta.obj.getKx1());
+		setKy1(consulta.obj.getKy1());
 
 	}
 	
@@ -264,7 +291,7 @@ public class Calculos extends VariaveisLaje {
 			setAsY1(getAsMinNeg());
 		}
 		
-		return "AsPOS X = " + getAsX() +
+		return  "AsPOS X = "  + getAsX() +
 			   " AsPOS Y = "  + getAsY() +
 			   " AsNEG X1 = " + getAsX1() +
 			   " AsNEG Y1 = " + getAsY1();
@@ -307,7 +334,7 @@ public class Calculos extends VariaveisLaje {
 			getQy1();
 		}
 		
-		return "QX "   + getQx()  +
+		return  "QX "  + getQx()  +
 			   " QY "  + getQy()  +
 			   " Qx1 " + getQx1() +
 			   " Qy1 " + getQy1();

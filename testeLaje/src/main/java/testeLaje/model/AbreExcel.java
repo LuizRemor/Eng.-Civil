@@ -1,4 +1,4 @@
-/*package testeLaje.model;
+package testeLaje.model;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,7 +15,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
-import testeLaje.model.dao.impl.CoeficientesKDaoJDBC;
+import testeLaje.model.dao.impl.CoeficientesDaoJDBC;
 
 public class AbreExcel {
 	private static final String caminhoArquivo = "C:\\Users\\luiz.neto\\Desktop\\ENG. CIVIL\\Concreto armado I\\Programa Laje\\Coeficientes.xls";
@@ -25,7 +25,7 @@ public class AbreExcel {
 
 		// HSSFWorkbook e HSSFSheet
 
-		List<Coeficientes> listaCoeficientes = new ArrayList<Coeficientes>();
+		List<CoeficientesKeMi> listaCoeficientes = new ArrayList<CoeficientesKeMi>();
 
 		try {
 			FileInputStream arquivo = new FileInputStream(new File(caminhoArquivo));
@@ -42,7 +42,7 @@ public class AbreExcel {
 
 				Iterator<Cell> cellIterator = row.cellIterator();
 
-				Coeficientes coeficientes = new Coeficientes();
+				CoeficientesKeMi coeficientes = new CoeficientesKeMi();
 
 				listaCoeficientes.add(coeficientes);
 
@@ -87,9 +87,9 @@ public class AbreExcel {
 
 			arquivo.close();
 
-			CoeficientesKDaoJDBC coeficientekDaoJDBC = new CoeficientesKDaoJDBC();
+			CoeficientesDaoJDBC coeficientekDaoJDBC = new CoeficientesDaoJDBC();
 
-			for (Coeficientes obj : listaCoeficientes) {
+			for (CoeficientesKeMi obj : listaCoeficientes) {
 
 				coeficientekDaoJDBC.insert(obj);
 
@@ -105,4 +105,4 @@ public class AbreExcel {
 		}
 	}
 
-}*/
+}

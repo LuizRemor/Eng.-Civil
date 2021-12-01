@@ -40,6 +40,10 @@ public class VariaveisLaje {
 	private Double Ky;
 	private Double Kx1;
 	private Double Ky1;
+	private Double miX;
+	private Double miY;
+	private Double miX1;
+	private Double miY1;
 	private Double Qx;
 	private Double Qy;
 	private Double Qx1;
@@ -47,6 +51,7 @@ public class VariaveisLaje {
 	private Double mServ;
 	private Double inercia;
 	private Double coeficienteK;
+	private Double coeficienteMx;
 	private Double ft0;
 	private Double ftInfinito;
 	private Double fAdm;
@@ -68,10 +73,10 @@ public class VariaveisLaje {
 			Double b, Double cargaQ, Double cargaG, Double cargaTotalP, Double espessuraRevestimento,
 			Double espessuraContraPiso, Double espessuraLaje, Double psi2, Double pServ, Double fcd, Double fck,
 			Double fcs, Double fctm, Double fctkInf, Double fctd, Double fyk, Double fyd, Double mFiss, Double mX,
-			Double xx, Double xy, Double xx1, Double xy1, Double kx, Double ky, Double kx1, Double ky1, Double qx,
-			Double qy, Double qx1, Double qy1, Double mServ, Double inercia, Double coeficienteK, Double ft0,
-			Double ftInfinito, Double fAdm, Double d, Double x, Double asX, Double asY, Double asX1, Double asY1,
-			Double asMinPos, Double asMinNeg) {
+			Double xx, Double xy, Double xx1, Double xy1, Double kx, Double ky, Double kx1, Double ky1, Double miX,
+			Double miY, Double miX1, Double miY1, Double qx, Double qy, Double qx1, Double qy1, Double mServ,
+			Double inercia, Double coeficienteK, Double ft0, Double ftInfinito, Double fAdm, Double d, Double x,
+			Double asX, Double asY, Double asX1, Double asY1, Double asMinPos, Double asMinNeg, Double coeficienteMx) {
 		super();
 		this.ladoX = ladoX;
 		this.ppConcreto = ppConcreto;
@@ -111,6 +116,10 @@ public class VariaveisLaje {
 		Ky = ky;
 		Kx1 = kx1;
 		Ky1 = ky1;
+		this.miX = miX;
+		this.miY = miY;
+		this.miX1 = miX1;
+		this.miY1 = miY1;
 		Qx = qx;
 		Qy = qy;
 		Qx1 = qx1;
@@ -129,6 +138,15 @@ public class VariaveisLaje {
 		this.asY1 = asY1;
 		this.asMinPos = asMinPos;
 		this.asMinNeg = asMinNeg;
+		this.coeficienteMx = coeficienteMx;
+	}
+	
+	public Double getCoeficienteMx() {
+		return coeficienteMx;
+	}
+
+	public void setCoeficienteMx(Double coeficienteMx) {
+		this.coeficienteMx = coeficienteMx;
 	}
 
 	public Double getLadoX() {
@@ -433,6 +451,38 @@ public class VariaveisLaje {
 
 	public void setKy1(Double ky1) {
 		Ky1 = ky1;
+	}
+
+	public Double getMiX() {
+		return miX;
+	}
+
+	public void setMiX(Double miX) {
+		this.miX = miX;
+	}
+
+	public Double getMiY() {
+		return miY;
+	}
+
+	public void setMiY(Double miY) {
+		this.miY = miY;
+	}
+
+	public Double getMiX1() {
+		return miX1;
+	}
+
+	public void setMiX1(Double miX1) {
+		this.miX1 = miX1;
+	}
+
+	public Double getMiY1() {
+		return miY1;
+	}
+
+	public void setMiY1(Double miY1) {
+		this.miY1 = miY1;
 	}
 
 	public Double getQx() {
