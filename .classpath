@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="Dimensionamento completo/src"/>
+	<classpathentry kind="src" path="Dimensionamento de vigas/src"/>
+	<classpathentry excluding="testeLaje/model/|testeLaje/model/dao/impl/" kind="src" path="testeLaje/src/main/java"/>
+	<classpathentry excluding="dao/impl/" kind="src" path="testeLaje/src/main/java/testeLaje/model"/>
+	<classpathentry kind="src" path="testeLaje/src/main/java/testeLaje/model/dao/impl"/>
+	<classpathentry excluding="testeLaje/model/dao/impl/|testeLaje/model/" kind="src" path="testeLaje/testeLaje/src/main/java"/>
+	<classpathentry excluding="dao/impl/" kind="src" path="testeLaje/testeLaje/src/main/java/testeLaje/model"/>
+	<classpathentry kind="src" path="testeLaje/testeLaje/src/main/java/testeLaje/model/dao/impl"/>
+	<classpathentry kind="output" path="Dimensionamento completo/bin"/>
+</classpath>

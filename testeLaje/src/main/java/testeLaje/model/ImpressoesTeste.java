@@ -1,4 +1,4 @@
-/*package testeLaje.model;
+package testeLaje.model;
 
 public class ImpressoesTeste {
 
@@ -52,4 +52,4 @@ public class ImpressoesTeste {
 		
 	}
 
-}*/
+}
