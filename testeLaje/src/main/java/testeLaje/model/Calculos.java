@@ -15,17 +15,17 @@ public class Calculos extends VariaveisLaje {
 		//LADOS, AJUSTAR O LAMBDA, CASO, ESPESSURA DA LAJE, CARGA ACIDENTAL, PSI2;
 
 		// em metros
-		setLadoX(3.4); //ALTERAR
-		setLadoY(4.8); //ALTERAR
+		setLadoX(2.45); //ALTERAR
+		setLadoY(5.1); //ALTERAR
 		setArea(getLadoX() * getLadoY());
 		//LAMBDA
 		coef.setLambda(getLadoY()/getLadoX());
 		//CASO
-		coef.setCaso(4.0); //ALTERAR
+		coef.setCaso(7.0); //ALTERAR
 		// espessuras em cm, divido por 100 para passar pra m - ALTERAR
 		setEspessuraRevestimento(2.0 / 100.0); //PADRÃO
 		setEspessuraContraPiso(3.0 / 100.0); //PADRÃO
-		setEspessuraLaje(9.0 / 100.0); //ALTERAR
+		setEspessuraLaje(11.0 / 100.0); //ALTERAR
 		// tudo em kN/m²
 		setGamaConcreto(25.0); //PADRÃO
 		setGamaContrapiso(21.0); //PADRÃO
@@ -33,7 +33,7 @@ public class Calculos extends VariaveisLaje {
 		setpForro(0.5); //PADRÃO
 		
 		// carga acidental
-		setCargaQ(5.0); //ALTERAR
+		setCargaQ(4.0); //ALTERAR
 		
 		//psi2
 		setPsi2(0.4); //ALTERAR
@@ -50,8 +50,8 @@ public class Calculos extends VariaveisLaje {
 		//Inércia
 		setInercia((100.0*Math.pow((getEspessuraLaje()*100),3))/12);
 		//AUTOMATIZAR
-		setCoeficienteMx(0.045);
-		setCoeficienteK(0.36); //ALTERAR
+		setCoeficienteMx(0.065);
+		setCoeficienteK(0.26); //ALTERAR
 		//CÁLCULO DO D
 		setD(getEspessuraLaje()*100 - 2.5 - 0.5);
 	}
@@ -99,7 +99,9 @@ public class Calculos extends VariaveisLaje {
 	public Double eCi() {
 		double eCi = 0.0;
 		//USANDO BASALTO = 1.2
-		eCi = 1.2*5600*Math.sqrt(getFck());
+		//CALCARIO = 0.9
+		//GRANITO E GNAISSE = 1.0
+		eCi = 1*5600*Math.sqrt(getFck());
 		
 		return eCi;
 		
@@ -174,7 +176,7 @@ public class Calculos extends VariaveisLaje {
 		}
 	}
 	public Double ajustaLambda() {
-		coef.setLambda(1.35); //ALTERAR
+		coef.setLambda(99999.0); //ALTERAR
 		return coef.getLambda();
 	}
 	
@@ -296,6 +298,14 @@ public class Calculos extends VariaveisLaje {
 			   " AsNEG X1 = " + getAsX1() +
 			   " AsNEG Y1 = " + getAsY1();
 	}
+	
+	/*public List<EspacamentoBitola> retornaEspacamentoBitola() {
+		
+		EspacamentoBitolaDaoJDBC espacamentoBitola = new EspacamentoBitolaDaoJDBC();
+		
+		return espacamentoBitola.pesquisaEspacamento(getAsX());
+		
+	}*/
 	
 	public void calculaReacoes() {
 		

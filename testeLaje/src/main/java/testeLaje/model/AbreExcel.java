@@ -15,17 +15,17 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
-import testeLaje.model.dao.impl.CoeficientesDaoJDBC;
+import testeLaje.model.dao.impl.EspacamentoBitolaDaoJDBC;
 
 public class AbreExcel {
-	private static final String caminhoArquivo = "C:\\Users\\luiz.neto\\Desktop\\ENG. CIVIL\\Concreto armado I\\Programa Laje\\Coeficientes.xls";
+	private static final String caminhoArquivo = "C:\\Users\\luiz.neto\\Desktop\\ENG. CIVIL\\Concreto armado I\\Programa Laje\\Instalacões eletricas2.xls";
 
 	@SuppressWarnings("resource")
 	public static void main(String[] args) throws ParseException, IOException, SQLException {
 
 		// HSSFWorkbook e HSSFSheet
 
-		List<CoeficientesKeMi> listaCoeficientes = new ArrayList<CoeficientesKeMi>();
+		List<EspacamentoBitola> listaEspacamentoBitola = new ArrayList<EspacamentoBitola>();
 
 		try {
 			FileInputStream arquivo = new FileInputStream(new File(caminhoArquivo));
@@ -42,67 +42,49 @@ public class AbreExcel {
 
 				Iterator<Cell> cellIterator = row.cellIterator();
 
-				CoeficientesKeMi coeficientes = new CoeficientesKeMi();
+				EspacamentoBitola espacamentoBitola = new EspacamentoBitola();
 
-				listaCoeficientes.add(coeficientes);
+				listaEspacamentoBitola.add(espacamentoBitola);
 
 				while (cellIterator.hasNext()) {
 					Cell cell = cellIterator.next();
 					switch (cell.getColumnIndex()) {
 					case 0:
-						coeficientes.setCaso(cell.getNumericCellValue());
+						espacamentoBitola.setBitola(cell.getNumericCellValue());
 						break;
 					case 1:
-						coeficientes.setLambda(cell.getNumericCellValue());
+						espacamentoBitola.setEspacamento(cell.getNumericCellValue());
 						break;
 					case 2:
-						coeficientes.setMiX(cell.getNumericCellValue());
-						break;
-					case 3:
-						coeficientes.setMiY(cell.getNumericCellValue());
-						break;
-					case 4:
-						coeficientes.setMiX1(cell.getNumericCellValue());
-						break;
-					case 5:
-						coeficientes.setMiY1(cell.getNumericCellValue());
-						break;
-					case 6:
-						coeficientes.setKx(cell.getNumericCellValue());
-						break;
-					case 7:
-						coeficientes.setKy(cell.getNumericCellValue());
-						break;
-					case 8:
-						coeficientes.setKx1(cell.getNumericCellValue());
-						break;
-					case 9:
-						coeficientes.setKy1(cell.getNumericCellValue());
+						espacamentoBitola.setArea_aco(cell.getNumericCellValue());
 						break;
 					}
 
 				}
-
 			}
 
 			arquivo.close();
 
-			CoeficientesDaoJDBC coeficientekDaoJDBC = new CoeficientesDaoJDBC();
+			EspacamentoBitolaDaoJDBC espacamentoBitolaDaoJDBC = new EspacamentoBitolaDaoJDBC();
 
-			for (CoeficientesKeMi obj : listaCoeficientes) {
+			for (EspacamentoBitola obj : listaEspacamentoBitola) {
 
-				coeficientekDaoJDBC.insert(obj);
+				espacamentoBitolaDaoJDBC.insert(obj);
 
 			}
 
-		} catch (FileNotFoundException e) {
+			System.out.println("Processo terminado");
+
+		}
+
+		catch (FileNotFoundException e) {
 			e.printStackTrace();
 			System.out.println("Arquivo Excel não encontrado!");
 		}
 
-		if (listaCoeficientes.size() == 0) {
+		if (listaEspacamentoBitola.size() == 0) {
 			System.out.println("Nenhum coeficiente encontrado!");
 		}
-	}
 
+	}
 }*/

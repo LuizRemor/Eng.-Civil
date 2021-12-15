@@ -1,11 +1,17 @@
 package testeLaje.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import testeLaje.model.dao.impl.EspacamentoBitolaDaoJDBC;
+
 public class ImpressoesTeste {
 
 	public static void main(String[] args) {
 		
 		Calculos calc = new Calculos();
-		
+		EspacamentoBitolaDaoJDBC consulta = new EspacamentoBitolaDaoJDBC();
+			
 		System.out.printf("Carga total (kN/m²)      = %.2f%n", calc.cargaTotal());
 		System.out.printf("Carga permanente (kN/m²) = %.2f%n", calc.cargaPermanente());
 		System.out.printf("Carga de serviço (kN/m²) = %.2f%n", calc.cargaDeServico());
@@ -41,6 +47,18 @@ public class ImpressoesTeste {
 		System.out.println("Valores de Aço (cm²/m) ----------> " + calc.calculaAco());
 		System.out.println("Valores mínimos de Aço (cm²/m) --> " + calc.calculaAsMin());
 		System.out.println("Decisão dos aços (cm²/m) --------> " + calc.decideAco());
+		System.out.println();
+		System.out.println("ESCOLHER O AÇO POSITIVO EM X - ÁREA DE AÇO = " + calc.getAsX());
+		consulta.pesquisaEspacamento(1.65);
+		System.out.println();
+		System.out.println("ESCOLHER O AÇO POSITIVO EM Y - ÁREA DE AÇO = " + calc.getAsY());
+		consulta.pesquisaEspacamento(0.9);
+		System.out.println();
+		System.out.println("ESCOLHER O AÇO NEGATIVO EM X - ÁREA DE AÇO = " + calc.getAsX1());
+		consulta.pesquisaEspacamento(2.61);
+		System.out.println();
+		System.out.println("ESCOLHER O AÇO NEGATIVO EM Y - ÁREA DE AÇO = " + calc.getAsY1());
+		consulta.pesquisaEspacamento(1.66);
 		System.out.println();
 		System.out.println("Reações = (kN/m) --> " + calc.calculaRecaoTotal());
 		System.out.println();
